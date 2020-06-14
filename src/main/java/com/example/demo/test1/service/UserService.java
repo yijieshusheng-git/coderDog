@@ -26,6 +26,10 @@ public class UserService {
         System.out.println("test commit");
     }
 
+    public void function3(){
+        System.out.println("test commit");
+    }
+
 }
 
 
