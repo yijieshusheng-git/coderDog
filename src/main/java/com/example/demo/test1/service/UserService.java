@@ -22,6 +22,10 @@ public class UserService {
         return str;
     }
 
+    public void function2(){
+        System.out.println("test commit");
+    }
+
 }
 
 
