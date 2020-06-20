@@ -1,4 +1,4 @@
-package com.example.demo.test_lcu_demo.service;
+package com.example.demo.test_lru_demo.service;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -6,13 +6,13 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * @ClassName MyLcuCacheDemo
- * @Description LCU 策略下的 缓存模拟
+ * @ClassName MyLruCacheDemo
+ * @Description LRU 策略下的 缓存模拟 最近最少使用
  * @Author 孤 鸿
  * @Date 2020/6/15  9:25 下午
  * @Version 1.0
  */
-public class MyLcuCacheDemo<K, V> {
+public class MyLruCache<K, V> {
 
     private final int maxCapacity;
     /**
@@ -31,7 +31,7 @@ public class MyLcuCacheDemo<K, V> {
     /**
      * 构造函数初始化
      */
-    public MyLcuCacheDemo(int cacheSize) {
+    public MyLruCache(int cacheSize) {
         if (cacheSize < 0) {
             throw new IllegalArgumentException("Illegal Argument: " + cacheSize);
         }
@@ -75,7 +75,8 @@ public class MyLcuCacheDemo<K, V> {
     public V get(K k) {
         readLock.lock();
         try {
-            if (null != k && cacheMap.contains(k)) {
+            //取出元素的时候，元素放到队列尾部，因为头部是最先删除的元素，这样符合LRU原则
+            if (null != k && cacheMap.containsKey(k)) {
                 moveToTail(k);
                 return cacheMap.get(k);
             }
@@ -83,6 +84,23 @@ public class MyLcuCacheDemo<K, V> {
             readLock.unlock();
         }
         return null;
+    }
+
+    /**
+     * 删除一个元素
+     */
+    public V remove(K key) {
+        writeLock.lock();
+        try {
+            //key是否存在当前缓存
+            if (cacheMap.containsKey(key)) {
+                keysQue.remove(key);
+                return cacheMap.remove(key);
+            }
+            return null;
+        } finally {
+            writeLock.unlock();
+        }
     }
 
     /**

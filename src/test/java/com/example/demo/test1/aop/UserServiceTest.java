@@ -1,13 +1,13 @@
 package com.example.demo.test1.aop;
 
-import com.example.demo.MyFirstSpringBootAppApplication;
 import com.example.demo.test1.dao.UserNameHandler;
 import com.example.demo.test1.service.UserService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @ClassName UserServiceTest
@@ -16,9 +16,10 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @Date 2020/6/14  2:10 下午
  * @Version 1.0
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = MyFirstSpringBootAppApplication.class)
-public class UserServiceTest {
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@DisplayName("这个是UserServiceTest 测试类")
+public class UserServiceTest  {
 
     @Autowired
     private UserService service;
