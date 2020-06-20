@@ -123,4 +123,8 @@ public class MyLruCache<K, V> {
         }
     }
 
+    public int size(){
+        return cacheMap.size();
+    }
+
 }
