@@ -21,4 +21,8 @@ public class ChildService extends ParentService {
         log.info("this is ChildService childPrint function");
     }
 
+    public static void main(String[] args) {
+        ChildService.testStatic();
+    }
+
 }

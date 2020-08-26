@@ -18,4 +18,8 @@ public class ParentService {
         log.info("this is ParentService parentPrint function");
     }
 
+    public static void testStatic(){
+        System.out.println("test static function whether can extend ?");
+    }
+
 }
