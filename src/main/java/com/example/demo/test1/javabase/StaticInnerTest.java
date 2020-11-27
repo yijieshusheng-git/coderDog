@@ -12,6 +12,7 @@ public class StaticInnerTest {
     private String name;
     private static String age;
 
+
     static class Inner{
         void print(){
             System.out.println(age);
